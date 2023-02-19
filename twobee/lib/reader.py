@@ -8,6 +8,10 @@ from typing_extensions import Final
 from struct            import unpack
 
 ##############################################################################
+# Rich imports.
+from rich.repr import Result
+
+##############################################################################
 # Local imports.
 from .sequence import TwoBitSequence
 
@@ -47,6 +51,11 @@ class TwoBitReader( ABC ):
 
         # Read the index.
         self._read_index()
+
+    def __rich_repr__( self ) -> Result:
+        """Make the object look nice in Rich."""
+        yield self._uri
+        yield "sequence_count", self._sequence_count
 
     @abstractmethod
     def open( self ) -> None:
