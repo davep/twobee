@@ -77,6 +77,15 @@ class TwoBitReader( ABC ):
         raise NotImplemented
 
     @abstractmethod
+    def position( self ) -> int:
+        """Get the current position within the 2bit file.
+
+        Returns:
+           The current position.
+        """
+        raise NotImplemented
+
+    @abstractmethod
     def read( self, size: int, position: int | None=None ) -> bytes:
         """Read a number of bytes from the 2bit file.
 

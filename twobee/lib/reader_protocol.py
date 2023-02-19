@@ -11,6 +11,9 @@ class TwoBitReaderInterface( Protocol ):
     def goto( self, position: int ) -> None:
         ...
 
+    def position( self ) -> int:
+        ...
+
     def read( self, size: int, position: int | None=None ) -> bytes:
         ...
 

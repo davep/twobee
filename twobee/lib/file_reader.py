@@ -28,6 +28,14 @@ class TwoBitFileReader( TwoBitReader ):
         """
         self._file.seek( position )
 
+    def position( self ) -> int:
+        """Get the current position within the 2bit file.
+
+        Returns:
+           The current position.
+        """
+        return self._file.tell()
+
     def read( self, size: int, position: int | None=None ) -> bytes:
         """Read a number of bytes from the 2bit file.
 
