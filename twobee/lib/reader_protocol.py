@@ -8,6 +8,9 @@ from typing_extensions import Protocol
 ##############################################################################
 class TwoBitReaderInterface( Protocol ):
 
+    def goto( self, position: int ) -> None:
+        ...
+
     def read( self, size: int, position: int | None=None ) -> bytes:
         ...
 

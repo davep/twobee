@@ -68,6 +68,15 @@ class TwoBitReader( ABC ):
         raise NotImplemented
 
     @abstractmethod
+    def goto( self, position: int ) -> None:
+        """Go to a specific position within the file.
+
+        Args:
+            position: The position to go to in the file.
+        """
+        raise NotImplemented
+
+    @abstractmethod
     def read( self, size: int, position: int | None=None ) -> bytes:
         """Read a number of bytes from the 2bit file.
 

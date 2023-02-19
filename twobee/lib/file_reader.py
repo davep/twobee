@@ -20,6 +20,14 @@ class TwoBitFileReader( TwoBitReader ):
         """Close the file."""
         self._file.close()
 
+    def goto( self, position: int ) -> None:
+        """Go to a specific position within the file.
+
+        Args:
+            position: The position to go to in the file.
+        """
+        self._file.seek( position )
+
     def read( self, size: int, position: int | None=None ) -> bytes:
         """Read a number of bytes from the 2bit file.
 
@@ -31,7 +39,7 @@ class TwoBitFileReader( TwoBitReader ):
             The bytes read.
         """
         if position is not None:
-            self._file.seek( position )
+            self.goto( position )
         return self._file.read( size )
 
 ### file_reader.py ends here
