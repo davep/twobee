@@ -20,4 +20,7 @@ class TwoBitReaderInterface( Protocol ):
     def read_long( self ) -> int:
         ...
 
+    def read_long_array( self, count: int ) -> tuple[ int, ... ]:
+        ...
+
 ### reader_protocol.py ends here

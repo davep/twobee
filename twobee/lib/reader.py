@@ -109,6 +109,17 @@ class TwoBitReader( ABC ):
         """
         return unpack( f"{self._endianness}L", self.read( 4 ) )[ 0 ]
 
+    def read_long_array( self, count: int ) -> tuple[ int, ... ]:
+        """Read an array of long integers from the file.
+
+        Args:
+            count: The count of long integers to read.
+
+        Returns:
+            A tuple of long integers read.
+        """
+        return unpack( f"{self._endianness}{'L' * count}", self.read( count * 4 ) )
+
     def _read_header( self ) -> None:
         """Read the header of the 2bit file."""
 
