@@ -14,4 +14,7 @@ class TwoBitReaderInterface( Protocol ):
     def read( self, size: int, position: int | None=None ) -> bytes:
         ...
 
+    def read_long( self ) -> int:
+        ...
+
 ### reader_protocol.py ends here

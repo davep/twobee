@@ -89,6 +89,17 @@ class TwoBitReader( ABC ):
         """
         raise NotImplemented
 
+    def read_long( self ) -> int:
+        """Read a long integer from the file.
+
+        Returns:
+            The long integer value read.
+
+        Note:
+            In this case a long integer is 4 bytes.
+        """
+        return unpack( f"{self._endianness}L", self.read( 4 ) )[ 0 ]
+
     def _read_header( self ) -> None:
         """Read the header of the 2bit file."""
 
