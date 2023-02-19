@@ -8,6 +8,10 @@ from typing_extensions import Final
 from struct            import unpack
 
 ##############################################################################
+# Local imports.
+from .sequence import TwoBitSequence
+
+##############################################################################
 class TwoBitReader( ABC ):
     """Abstract base class for 2bit reader classes."""
 
@@ -103,5 +107,21 @@ class TwoBitReader( ABC ):
             offset += name_length
             self._index[ name ], *_ = unpack( f"{self._endianness}L", raw_index[ offset: offset + 4 ] )
             offset += 4
+
+    def sequence( self, name: str ) -> TwoBitSequence:
+        """Get a 2bit sequence given its name.
+
+        Args:
+            name: The name of the sequence to get.
+
+        Returns:
+            An object for reading the sequence.
+        """
+        # TODO: Validate the sequence name first and then throw an error if
+        # it's not known.
+        return TwoBitSequence( self, name, self._index[ name ] )
+
+    def __getitem__( self, name: str ) -> TwoBitSequence:
+        return self.sequence( name )
 
 ### reader.py ends here
