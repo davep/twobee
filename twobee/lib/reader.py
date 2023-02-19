@@ -68,8 +68,12 @@ class TwoBitReader( ABC ):
         raise NotImplemented
 
     @abstractmethod
-    def read( self, size: int ) -> bytes:
+    def read( self, size: int, position: int | None=None ) -> bytes:
         """Read a number of bytes from the 2bit file.
+
+        Args:
+            size: The number of bytes to read.
+            position: The optional location to start reading from.
 
         Returns:
             The bytes read.
