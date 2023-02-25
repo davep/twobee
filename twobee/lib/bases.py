@@ -29,6 +29,7 @@ class TwoBitBases:
         self.end = end
         """The end location of the bases in the sequence (exclusive)."""
         self.bases = self._load()
+        """The bases found between the start and end locations."""
 
     def __rich_repr__( self ) -> Result:
         """Make the object look nice in Rich."""
