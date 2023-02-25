@@ -3,7 +3,6 @@
 ##############################################################################
 # Python imports.
 from __future__  import annotations
-from dataclasses import dataclass
 
 ##############################################################################
 # Rich imports.
@@ -11,19 +10,9 @@ from rich.repr import Result
 
 ##############################################################################
 # Local imports.
+from .bases           import TwoBitBases
+from .block           import TwoBitBlock
 from .reader_protocol import TwoBitReaderInterface
-
-##############################################################################
-# Class that holds the start and end of a block.
-@dataclass
-class TwoBitBlock:
-
-    start: int
-    """The start location of the block (inclusive)."""
-    end: int
-    """The end location of the block (exclusive)."""
-    size: int
-    """The size of the block."""
 
 ##############################################################################
 class TwoBitSequence:
@@ -39,15 +28,14 @@ class TwoBitSequence:
         """
 
         # Store off the key data.
-        self._reader = reader
-        self._name   = name
-        self._offset = offset
+        self.reader = reader
+        self._name  = name
 
         # Jump to the start of the sequence in the file.
-        self._reader.goto( self._offset )
+        self.reader.goto( offset )
 
         # Get the size of the DNA in the sequence.
-        self._dna_size = reader.read_long()
+        self._dna_size = self.reader.read_long()
 
         # Get the N block data.
         self.n_blocks = self._load_blocks()
@@ -57,12 +45,12 @@ class TwoBitSequence:
 
         # We should now be on the reserved long integer. It should always be
         # zero.
-        assert self._reader.read_long() == 0
+        assert self.reader.read_long() == 0
 
         # And. having got that far, we should be sat at the start of the
         # actual DNA data. Save where it is as we'll be needing to know
         # that.
-        self._dna_start = self._reader.position()
+        self._dna_start = self.reader.position()
 
     def _load_blocks( self ) -> tuple[ TwoBitBlock, ... ]:
         """Load the block data at the current location.
@@ -70,15 +58,15 @@ class TwoBitSequence:
         Returns:
             A tuple of the blocks read.
         """
-        counts = self._reader.read_long()
-        starts = self._reader.read_long_array( counts )
-        sizes  = self._reader.read_long_array( counts )
+        counts = self.reader.read_long()
+        starts = self.reader.read_long_array( counts )
+        sizes  = self.reader.read_long_array( counts )
         return tuple( TwoBitBlock( start, start + size, size ) for start, size in zip( starts, sizes ) )
 
     def __rich_repr__( self ) -> Result:
         """Make the object look nice in Rich."""
         yield self._name
-        yield "offset", self._offset
+        yield "dna_file_location", self.dna_file_location
         yield "dna_size", self._dna_size
         yield "len(n_blocks)", len( self.n_blocks )
         yield "len(mask_blocks)", len( self.mask_blocks )
@@ -93,11 +81,40 @@ class TwoBitSequence:
         return self._name
 
     @property
+    def dna_file_location( self ) -> int:
+        """The location of the start of the DNA in the 2bit file."""
+        return self._dna_start
+
+    @property
     def dna_size( self ) -> int:
         """The size of the DNA in the sequence."""
         return self._dna_size
 
     def __len__( self ) -> int:
         return self._dna_size
+
+    def bases( self, start: int, end: int ) -> TwoBitBases:
+        """Get bases from the 2bit file.
+
+        Args:
+            start: The start location to get the bases from (inclusive).
+            end: The end location to get the bases from (exclusive).
+
+        Returns:
+            The bases loaded between those locations.
+        """
+
+        # TODO: actually check and raise a library-bases exception.
+        assert end > start
+        return TwoBitBases( self, start, end )
+
+    def __getitem__( self, location: int | slice | tuple[ int, int ] ) -> TwoBitBases:
+        if isinstance( location, int ):
+            return self.bases( location, location + 1 )
+        if isinstance( location, slice ):
+            return self.bases( location.start, location.stop )
+        if isinstance( location, tuple ):
+            return self.bases( *location )
+        return NotImplemented
 
 ### sequence.py ends here

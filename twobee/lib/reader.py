@@ -28,13 +28,15 @@ class TwoBitReader( ABC ):
     _HEADER_SIZE: Final = 16
     """The size of a 2bit file header."""
 
-    def __init__( self, uri: str ) -> None:
+    def __init__( self, uri: str, masking: bool=True ) -> None:
         """Initialise the reader.
 
         Args:
             uri: The URI to read the data from.
+            masking: Should masking be taken into account?
         """
-        self._uri = uri
+        self._uri     = uri
+        self._masking = masking
         self.open()
 
         # Start out not knowing what endianness the data is in.
@@ -57,15 +59,20 @@ class TwoBitReader( ABC ):
         yield self._uri
         yield "sequence_count", self._sequence_count
 
+    @property
+    def masking( self ) -> bool:
+        """Should masking be taken into account?"""
+        return self._masking
+
     @abstractmethod
     def open( self ) -> None:
         """Open the URI for reading."""
-        raise NotImplemented
+        return NotImplemented
 
     @abstractmethod
     def close( self ) -> None:
         """Close the URI for reading."""
-        raise NotImplemented
+        return NotImplemented
 
     @abstractmethod
     def goto( self, position: int ) -> None:
@@ -74,7 +81,7 @@ class TwoBitReader( ABC ):
         Args:
             position: The position to go to in the file.
         """
-        raise NotImplemented
+        return NotImplemented
 
     @abstractmethod
     def position( self ) -> int:
@@ -83,7 +90,7 @@ class TwoBitReader( ABC ):
         Returns:
            The current position.
         """
-        raise NotImplemented
+        return NotImplemented
 
     @abstractmethod
     def read( self, size: int, position: int | None=None ) -> bytes:
@@ -96,7 +103,7 @@ class TwoBitReader( ABC ):
         Returns:
             The bytes read.
         """
-        raise NotImplemented
+        return NotImplemented
 
     def read_long( self ) -> int:
         """Read a long integer from the file.

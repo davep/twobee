@@ -8,6 +8,10 @@ from typing_extensions import Protocol
 ##############################################################################
 class TwoBitReaderInterface( Protocol ):
 
+    @property
+    def masking( self ) -> bool:
+        ...
+
     def goto( self, position: int ) -> None:
         ...
 
