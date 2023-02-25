@@ -34,7 +34,7 @@ class TwoBitBases:
         """Make the object look nice in Rich."""
         yield f"{self._sequence.name}:{self.start}...{self.end}"
         # TODO: pretty print and truncate.
-        yield "bases", "".join( self.bases )
+        yield "bases", str( self )
 
     def _load( self ) -> tuple[ str, ... ]:
         """Load a collection of bases from a 2bit file.
@@ -94,5 +94,8 @@ class TwoBitBases:
         # Having finished, let's turn the string of bases into a tuple of
         # individual bases.
         return tuple( sequence )
+
+    def __str__( self ) -> str:
+        return "".join( self.bases )
 
 ### bases.py ends here
