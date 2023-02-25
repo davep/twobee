@@ -6,6 +6,7 @@ from __future__        import annotations
 from abc               import ABC, abstractmethod
 from typing_extensions import Final
 from struct            import unpack
+from functools         import lru_cache
 
 ##############################################################################
 # Rich imports.
@@ -165,6 +166,7 @@ class TwoBitReader( ABC ):
             self._index[ name ], *_ = unpack( f"{self._endianness}L", raw_index[ offset: offset + 4 ] )
             offset += 4
 
+    @lru_cache()
     def sequence( self, name: str ) -> TwoBitSequence:
         """Get a 2bit sequence given its name.
 
