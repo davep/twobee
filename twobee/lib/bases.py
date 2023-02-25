@@ -32,9 +32,7 @@ class TwoBitBases:
 
     def __rich_repr__( self ) -> Result:
         """Make the object look nice in Rich."""
-        yield self._sequence.name
-        yield self.start
-        yield self.end
+        yield f"{self._sequence.name}:{self.start}...{self.end}"
         # TODO: pretty print and truncate.
         yield "bases", "".join( self.bases )
 
