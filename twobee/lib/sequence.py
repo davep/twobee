@@ -59,7 +59,7 @@ class TwoBitSequence:
         # zero.
         assert self._reader.read_long() == 0
 
-        # And. having go that far, we should be sat at the start of the
+        # And. having got that far, we should be sat at the start of the
         # actual DNA data. Save where it is as we'll be needing to know
         # that.
         self._dna_start = self._reader.position()
