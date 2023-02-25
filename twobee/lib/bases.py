@@ -1,6 +1,5 @@
 """Provides the class for holding a collection of bases, read from a 2bit file."""
 
-
 ##############################################################################
 # Python imports.
 from __future__ import annotations
