@@ -35,12 +35,12 @@ class TwoBitSequence:
         # Get the N block data.
         self._n_block_counts = reader.read_long()
         self._n_block_starts = reader.read_long_array( self._n_block_counts )
-        self._n_blick_sizes  = reader.read_long_array( self._n_block_counts )
+        self._n_block_sizes  = reader.read_long_array( self._n_block_counts )
 
         # Get the mask block data.
         self._mask_block_counts = reader.read_long()
         self._mask_block_starts = reader.read_long_array( self._mask_block_counts )
-        self._mask_blick_sizes  = reader.read_long_array( self._mask_block_counts )
+        self._mask_block_sizes  = reader.read_long_array( self._mask_block_counts )
 
         # We should now be on the reserved long integer. It should always be
         # zero.
