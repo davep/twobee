@@ -67,12 +67,10 @@ class TwoBitReader( ABC ):
     @abstractmethod
     def open( self ) -> None:
         """Open the URI for reading."""
-        return NotImplemented
 
     @abstractmethod
     def close( self ) -> None:
         """Close the URI for reading."""
-        return NotImplemented
 
     @abstractmethod
     def goto( self, position: int ) -> None:
@@ -81,7 +79,6 @@ class TwoBitReader( ABC ):
         Args:
             position: The position to go to in the file.
         """
-        return NotImplemented
 
     @abstractmethod
     def position( self ) -> int:
@@ -114,7 +111,7 @@ class TwoBitReader( ABC ):
         Note:
             In this case a long integer is 4 bytes.
         """
-        return unpack( f"{self._endianness}L", self.read( 4 ) )[ 0 ]
+        return int( unpack( f"{self._endianness}L", self.read( 4 ) )[ 0 ] )
 
     def read_long_array( self, count: int ) -> tuple[ int, ... ]:
         """Read an array of long integers from the file.
