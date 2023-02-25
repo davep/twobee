@@ -7,7 +7,7 @@ from __future__ import annotations
 
 ##############################################################################
 # Rich imports.
-from rich.repr  import Result
+from rich.repr import Result
 
 ##############################################################################
 # Local imports.
