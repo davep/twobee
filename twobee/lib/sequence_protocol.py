@@ -26,6 +26,11 @@ class TwoBitSequenceInterface( Protocol ):
     def dna_file_location( self ) -> int:
         ...
 
+    @property
+    def dna_size( self ) -> int:
+        ...
+
+
     def mask_blocks_intersecting( self, start: int, end: int ) -> tuple[ TwoBitBlock, ... ]:
         ...
 

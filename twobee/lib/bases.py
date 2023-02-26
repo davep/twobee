@@ -24,9 +24,9 @@ class TwoBitBases:
     def __init__( self, sequence: TwoBitSequenceInterface, start: int, end: int ) -> None:
         """"""
         self._sequence = sequence
-        self.start = start
+        self.start = min( start, sequence.dna_size )
         """The start location of the bases in the sequence (inclusive)."""
-        self.end = end
+        self.end = min( end, sequence.dna_size )
         """The end location of the bases in the sequence (exclusive)."""
         self.intersecting_mask_blocks = sequence.mask_blocks_intersecting( start, end )
         """The mask blocks that intersect these bases."""
