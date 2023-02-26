@@ -23,6 +23,7 @@ class Main( Screen ):
     DEFAULT_CSS = """
     Tree {
         width: 25%;
+        min-width: 25;
         border-right: vkey $panel-lighten-2;
     }
 
