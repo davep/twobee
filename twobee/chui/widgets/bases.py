@@ -97,7 +97,7 @@ class Bases( ScrollView, can_focus=True ):
             sequence: The sequence to show.
         """
         self._sequence    = sequence
-        self._label_size  = len( f"{sequence.dna_size:,>} " )
+        self._label_size  = len( f"{sequence.dna_size:>,} " )
         self.virtual_size = Size( self._width, ( self._sequence.dna_size // self._width ) + 1 )
 
     @property
