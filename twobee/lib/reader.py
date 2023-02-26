@@ -4,9 +4,10 @@
 # Python imports.
 from __future__        import annotations
 from abc               import ABC, abstractmethod
-from typing_extensions import Final
 from struct            import unpack
 from functools         import lru_cache
+from typing            import Iterator
+from typing_extensions import Final
 
 ##############################################################################
 # Rich imports.
