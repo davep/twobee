@@ -100,6 +100,7 @@ class Bases( ScrollView, can_focus=True ):
 
     @property
     def _empty_line( self ) -> Strip:
+        """An empty line for the display."""
         return Strip( [
             Segment(
                 self.NO_DATA * self.size.width,
@@ -132,7 +133,7 @@ class Bases( ScrollView, can_focus=True ):
                     ),
                     *[
                         Segment( base, style=self.get_component_rich_style( f"bases--{base}" ) )
-                        for base in self._sequence[ start:start + self.size.width ].bases
+                        for base in self._sequence[ start:start + self.virtual_size.width ].bases
                     ]
                 ] )
 
