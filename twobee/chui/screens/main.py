@@ -35,7 +35,7 @@ class Main( Screen ):
         """Initialise the main screen."""
         super().__init__()
         self._file = file
-        self._reader = TwoBitFileReader( str( file ) )
+        self._reader = TwoBitFileReader( str( file ), masking=False )
 
     def compose( self ) -> ComposeResult:
         """Compose the main screen of the application."""
