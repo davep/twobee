@@ -3,6 +3,7 @@
 ##############################################################################
 # Python imports.
 from __future__ import annotations
+from typing     import Iterator
 
 ##############################################################################
 # Rich imports.
@@ -99,5 +100,8 @@ class TwoBitBases:
 
     def __str__( self ) -> str:
         return "".join( self.bases )
+
+    def __iter__( self ) -> Iterator[ str ]:
+        return iter( self.bases )
 
 ### bases.py ends here
