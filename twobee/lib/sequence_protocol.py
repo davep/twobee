@@ -26,4 +26,7 @@ class TwoBitSequenceInterface( Protocol ):
     def dna_file_location( self ) -> int:
         ...
 
+    def mask_blocks_intersecting( self, start: int, end: int ) -> tuple[ TwoBitBlock, ... ]:
+        ...
+
 ### reader_protocol.py ends here

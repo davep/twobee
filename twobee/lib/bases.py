@@ -27,6 +27,8 @@ class TwoBitBases:
         """The start location of the bases in the sequence (inclusive)."""
         self.end = end
         """The end location of the bases in the sequence (exclusive)."""
+        self.intersecting_mask_blocks = sequence.mask_blocks_intersecting( start, end )
+        """The mask blocks that intersect these bases."""
         self.bases = self._load()
         """The bases found between the start and end locations."""
 
@@ -58,7 +60,7 @@ class TwoBitBases:
         end         = self.end
         masking     = self._sequence.reader.masking
         n_blocks    = self._sequence.n_blocks
-        mask_blocks = self._sequence.mask_blocks
+        mask_blocks = self.intersecting_mask_blocks
 
         # Now that we've figured all of the above out, let's load up enough
         # bytes to cover the range we're after.

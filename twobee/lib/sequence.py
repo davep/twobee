@@ -2,7 +2,8 @@
 
 ##############################################################################
 # Python imports.
-from __future__  import annotations
+from __future__ import annotations
+from functools  import lru_cache
 
 ##############################################################################
 # Rich imports.
@@ -116,5 +117,20 @@ class TwoBitSequence:
         if isinstance( location, tuple ):
             return self.bases( *location )
         return NotImplemented
+
+    @lru_cache()
+    def mask_blocks_intersecting( self, start: int, end: int ) -> tuple[ TwoBitBlock, ... ]:
+        """Get all mask blocks that intersect the given range.
+
+        Args:
+            start: The start of the range to consider.
+            end: The end of the range to consider.
+
+        Returns:
+            The mask blocks that intersect the given range.
+        """
+        return tuple(
+            block for block in self.mask_blocks if not ( block.end < start or block.start > end )
+        ) if self.reader.masking else ()
 
 ### sequence.py ends here
