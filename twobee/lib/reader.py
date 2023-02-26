@@ -166,6 +166,11 @@ class TwoBitReader( ABC ):
             self._index[ name ], *_ = unpack( f"{self._endianness}L", raw_index[ offset: offset + 4 ] )
             offset += 4
 
+    @property
+    def sequences( self ) -> tuple[ str, ... ]:
+        """The collection of sequences found in the 2bit file."""
+        return tuple( self._index.keys() )
+
     @lru_cache()
     def sequence( self, name: str ) -> TwoBitSequence:
         """Get a 2bit sequence given its name.
