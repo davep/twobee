@@ -172,6 +172,9 @@ class TwoBitReader( ABC ):
         """The collection of sequences found in the 2bit file."""
         return tuple( self._index.keys() )
 
+    def __iter__( self ) -> Iterator[ str ]:
+        return iter( self.sequences )
+
     @lru_cache()
     def sequence( self, name: str ) -> TwoBitSequence:
         """Get a 2bit sequence given its name.
