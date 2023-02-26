@@ -92,9 +92,9 @@ class Bases( ScrollView, can_focus=True ):
             sequence: The sequence to show.
         """
         self._sequence    = sequence
-        self._label_size  = len( str( sequence.dna_size ) ) + 1
+        self._label_size  = len( f"{sequence.dna_size:,>} " )
         self.virtual_size = Size(
-            self.size.width,
+            self.size.width - self._label_size,
             ( self._sequence.dna_size // ( self.size.width - self._label_size ) ) + 1
         )
 
@@ -122,13 +122,13 @@ class Bases( ScrollView, can_focus=True ):
         if self._sequence is not None:
 
             # Calculate the starting base in the view.
-            start = ( self.size.width - self._label_size ) * ( self.scroll_offset.y + y )
+            start = self.virtual_size.width * ( self.scroll_offset.y + y )
 
             # If that places us within the bases in the current sequence...
             if start < self._sequence.dna_size:
                 return Strip( [
                     Segment(
-                        f"{start:>{self._label_size}} ",
+                        f"{start:>{self._label_size},} ",
                         style=self.get_component_rich_style( "bases--label" )
                     ),
                     *[
