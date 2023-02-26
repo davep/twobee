@@ -53,7 +53,7 @@ class TwoBitBases:
         # Now set the initial position; this is the base position we're
         # working in, which moves through the bytes in the range 2 bits at a
         # time.
-        position = self.start
+        position = ( start_byte - self._sequence.dna_file_location ) * 4
 
         # Bring various values into locals, simply to reduce the number of
         # attribute access calls in the loop below.
