@@ -85,6 +85,11 @@ class Bases( ScrollView, can_focus=True ):
         self._sequence: TwoBitSequence | None = None
         self._label_size                      = 0
 
+    @property
+    def _width( self ) -> int:
+        """The width of the data."""
+        return self.size.width - ( self._label_size + self.scrollbar_size_vertical )
+
     def show( self, sequence: TwoBitSequence ):
         """Show the given sequence's bases.
 
@@ -93,10 +98,7 @@ class Bases( ScrollView, can_focus=True ):
         """
         self._sequence    = sequence
         self._label_size  = len( f"{sequence.dna_size:,>} " )
-        self.virtual_size = Size(
-            self.size.width - self._label_size,
-            ( self._sequence.dna_size // ( self.size.width - self._label_size ) ) + 1
-        )
+        self.virtual_size = Size( self._width, ( self._sequence.dna_size // self._width ) + 1 )
 
     @property
     def _empty_line( self ) -> Strip:
@@ -122,7 +124,7 @@ class Bases( ScrollView, can_focus=True ):
         if self._sequence is not None:
 
             # Calculate the starting base in the view.
-            start = self.virtual_size.width * ( self.scroll_offset.y + y )
+            start = self._width * ( self.scroll_offset.y + y )
 
             # If that places us within the bases in the current sequence...
             if start < self._sequence.dna_size:
@@ -133,7 +135,7 @@ class Bases( ScrollView, can_focus=True ):
                     ),
                     *[
                         Segment( base, style=self.get_component_rich_style( f"bases--{base}" ) )
-                        for base in self._sequence[ start:start + self.virtual_size.width ].bases
+                        for base in self._sequence[ start:start + self._width ]
                     ]
                 ] )
 
