@@ -99,6 +99,7 @@ class Bases( ScrollView, can_focus=True ):
         self._sequence    = sequence
         self._label_size  = len( f"{sequence.dna_size:>,} " )
         self.virtual_size = Size( self._width, ( self._sequence.dna_size // self._width ) + 1 )
+        self.scroll_to( 0, 0, animate=False )
 
     @property
     def _empty_line( self ) -> Strip:
