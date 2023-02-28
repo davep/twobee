@@ -93,5 +93,6 @@ class Main( Screen ):
             # ...and update the base viewer to view that.
             self.query_one( Bases ).show( self._reader[ event.node.data ] )
             self.query_one( "#info", Label ).update( event.node.data )
+            self.query_one( Bases ).focus()
 
 ### main.py ends here
