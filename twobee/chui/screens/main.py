@@ -8,8 +8,8 @@ from pathlib import Path
 # Textual imports.
 from textual.app          import ComposeResult
 from textual.screen       import Screen
-from textual.containers   import Horizontal
-from textual.widgets      import Header, Footer, Tree
+from textual.containers   import Horizontal, Vertical
+from textual.widgets      import Header, Footer, Tree, Label
 
 ##############################################################################
 # Local imports.
@@ -27,8 +27,26 @@ class Main( Screen ):
         border-right: vkey $panel-lighten-2;
     }
 
+    #viewer {
+        width: 1fr;
+    }
+
+    #info {
+        height: 1;
+        width: 100%;
+        color: $text-muted;
+        background: $primary-background;
+        text-align: center;
+    }
+
+    #viewer:focus-within #info, #viewer:focus-within Bases .bases--label {
+        text-style: bold;
+        background: $panel-lighten-2;
+    }
+
     Bases {
         width: 1fr;
+        height: 1fr;
     }
     """
 
@@ -43,7 +61,9 @@ class Main( Screen ):
         yield Header()
         with Horizontal():
             yield Tree[ str ]( str( self._file.stem ) )
-            yield Bases()
+            with Vertical( id="viewer" ):
+                yield Label( "[i]None[/]", id="info" )
+                yield Bases()
         yield Footer()
 
     def on_mount( self ) -> None:
@@ -65,5 +85,6 @@ class Main( Screen ):
         if isinstance( event.node.data, str ):
             # ...and update the base viewer to view that.
             self.query_one( Bases ).show( self._reader[ event.node.data ] )
+            self.query_one( "#info", Label ).update( event.node.data )
 
 ### main.py ends here
