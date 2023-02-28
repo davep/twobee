@@ -51,21 +51,43 @@ class Bases( ScrollView, can_focus=True ):
         background: $primary-background;
     }
 
+    /* Thymine. */
+
     Bases > .bases--t, Bases > .bases--T {
+        color: #bbbb00;
+    }
+
+    App.-light-mode Bases > .bases--t, App.-light-mode Bases > .bases--T {
         color: #969600;
     }
 
+    /* Cytosine. */
+
     Bases > .bases--c, Bases > .bases--C {
+        color: #ff0000;
+    }
+
+    App.-light-mode Bases > .bases--c, App.-light-mode Bases > .bases--C {
         color: #bb0000;
     }
 
+    /* Adenine. */
+
     Bases > .bases--a, Bases > .bases--A {
+        color: #8dd4e8;
+    }
+
+    App.-light-mode Bases > .bases--a, App.-light-mode Bases > .bases--A {
         color: #4b5cc4;
     }
+
+    /* Guanine. */
 
     Bases > .bases--g, Bases > .bases--G {
         color: #00c000;
     }
+
+    /* Any/unknown. */
 
     Bases > .bases--n, Bases > .bases--N {
         color: $text-muted;
