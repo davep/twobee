@@ -90,7 +90,7 @@ class Bases( ScrollView, can_focus=True ):
     /* Any/unknown. */
 
     Bases > .bases--n, Bases > .bases--N {
-        color: $text-muted;
+        color: $text-disabled;
     }
     """
 
