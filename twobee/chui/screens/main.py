@@ -6,10 +6,11 @@ from pathlib import Path
 
 ##############################################################################
 # Textual imports.
-from textual.app          import ComposeResult
-from textual.screen       import Screen
-from textual.containers   import Horizontal, Vertical
-from textual.widgets      import Header, Footer, Tree, Label
+from textual.app        import ComposeResult
+from textual.screen     import Screen
+from textual.containers import Horizontal, Vertical
+from textual.widgets    import Header, Footer, Tree, Label
+from textual.binding    import Binding
 
 ##############################################################################
 # Local imports.
@@ -49,6 +50,11 @@ class Main( Screen ):
         height: 1fr;
     }
     """
+
+    BINDINGS = [
+        Binding( "escape", "app.quit", "Exit" ),
+    ]
+    """The bindings for the main screen."""
 
     def __init__( self, file: Path ) -> None:
         """Initialise the main screen."""
