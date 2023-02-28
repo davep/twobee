@@ -4,6 +4,7 @@
 # Python imports.
 from __future__ import annotations
 from functools  import lru_cache
+from re         import match
 
 ##############################################################################
 # Rich imports.
@@ -109,13 +110,17 @@ class TwoBitSequence:
         assert end > start
         return TwoBitBases( self, start, end )
 
-    def __getitem__( self, location: int | slice | tuple[ int, int ] ) -> TwoBitBases:
+    def __getitem__( self, location: int | slice | tuple[ int, int ] | str ) -> TwoBitBases:
         if isinstance( location, int ):
             return self.bases( location, location + 1 )
         if isinstance( location, slice ):
             return self.bases( location.start, location.stop )
         if isinstance( location, tuple ):
             return self.bases( *location )
+        if isinstance( location, str ):
+            hit = match( r"^(?P<start>\d+)(?::|\.\.)(?P<end>\d+)$", location )
+            if hit is not None:
+                return self[ ( int( hit[ "start" ] ), int( hit[ "end" ] )) ]
         return NotImplemented
 
     @lru_cache()
