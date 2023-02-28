@@ -53,6 +53,7 @@ class Main( Screen ):
 
     BINDINGS = [
         Binding( "escape", "app.quit", "Exit" ),
+        Binding( "ctrl+d", "app.toggle_dark", "Light/Dark" ),
     ]
     """The bindings for the main screen."""
 
