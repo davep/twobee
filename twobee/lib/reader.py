@@ -30,12 +30,16 @@ class TwoBitReader( ABC ):
     _HEADER_SIZE: Final = 16
     """The size of a 2bit file header."""
 
-    def __init__( self, uri: str, masking: bool=True ) -> None:
+    def __init__( self, uri: str, masking: bool=False ) -> None:
         """Initialise the reader.
 
         Args:
             uri: The URI to read the data from.
             masking: Should masking be taken into account?
+
+        Note:
+
+            The `masking` parameter is optional and is `False` by default.
         """
         self._uri     = uri
         self._masking = masking
