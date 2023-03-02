@@ -7,6 +7,7 @@ from typing_extensions import Protocol
 
 ##############################################################################
 class TwoBitReaderInterface( Protocol ):
+    """Protocol class for 2bit reader classes."""
 
     @property
     def masking( self ) -> bool:
