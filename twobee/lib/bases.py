@@ -104,4 +104,7 @@ class TwoBitBases:
     def __iter__( self ) -> Iterator[ str ]:
         return iter( self.bases )
 
+    def __len__( self ) -> int:
+        return len( self.bases )
+
 ### bases.py ends here
