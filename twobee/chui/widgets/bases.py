@@ -155,7 +155,7 @@ class Bases( ScrollView, can_focus=True ):
             if start < self._sequence.dna_size:
                 return Strip( [
                     Segment(
-                        f"{start:>{self._label_size},} ",
+                        f"{start:>{self._label_size-1},} ",
                         style=self.get_component_rich_style( "bases--label" )
                     ),
                     *[
