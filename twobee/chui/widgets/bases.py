@@ -40,6 +40,8 @@ class Bases( ScrollView, can_focus=True ):
     DEFAULT_CSS = """
     Bases {
         background: $panel;
+        /* Currently I can only make this work always showing the scrollbars. */
+        overflow-y: scroll;
     }
 
     Bases > .bases--no-data {
