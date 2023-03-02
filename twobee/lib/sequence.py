@@ -114,7 +114,10 @@ class TwoBitSequence:
         if isinstance( location, int ):
             return self.bases( location, location + 1 )
         if isinstance( location, slice ):
-            return self.bases( location.start, location.stop )
+            return self.bases(
+                0 if location.start is None else location.start,
+                len( self ) if location.stop is None else location.stop
+            )
         if isinstance( location, tuple ):
             return self.bases( *location )
         if isinstance( location, str ):
