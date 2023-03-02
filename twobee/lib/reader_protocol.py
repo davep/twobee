@@ -9,6 +9,8 @@ from typing_extensions import Protocol
 class TwoBitReaderInterface( Protocol ):
     """Protocol class for 2bit reader classes."""
 
+    # pylint: disable=missing-docstring
+
     @property
     def masking( self ) -> bool:
         ...
