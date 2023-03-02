@@ -179,6 +179,9 @@ class TwoBitReader( ABC ):
     def __iter__( self ) -> Iterator[ str ]:
         return iter( self.sequences )
 
+    def __len__( self ) -> int:
+        return self._sequence_count
+
     @lru_cache()
     def sequence( self, name: str ) -> TwoBitSequence:
         """Get a 2bit sequence given its name.
