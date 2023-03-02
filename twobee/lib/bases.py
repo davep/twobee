@@ -22,7 +22,13 @@ class TwoBitBases:
     """Holds bases read from a location in a 2bit file."""
 
     def __init__( self, sequence: TwoBitSequenceInterface, start: int, end: int ) -> None:
-        """"""
+        """Initialise the bases object.
+
+        Args:
+            sequence: The sequence that the bases are to be pulled from.
+            start: The starting base (inclusive).
+            end: Tne ending base (exclusive).
+        """
         self._sequence = sequence
         self.start = min( start, sequence.dna_size )
         """The start location of the bases in the sequence (inclusive)."""
