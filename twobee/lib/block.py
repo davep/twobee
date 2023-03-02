@@ -1,3 +1,5 @@
+"""Provides a class that holds details of a 2bit block."""
+
 ##############################################################################
 # Python imports.
 from dataclasses import dataclass
