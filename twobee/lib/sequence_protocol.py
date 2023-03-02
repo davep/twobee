@@ -18,6 +18,8 @@ class TwoBitSequenceInterface( Protocol ):
     n_blocks: tuple[ TwoBitBlock, ... ]
     mask_blocks: tuple[ TwoBitBlock, ... ]
 
+    # pylint: disable=missing-docstring
+
     @property
     def name( self ) -> str:
         ...
