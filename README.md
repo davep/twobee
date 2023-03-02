@@ -157,4 +157,8 @@ TwoBitBases('chrX:10000..10010', bases='CTAACCCTAA')
 There are a few convenience methods and the like on `TwoBitBases` to make it
 easy to work with, with a bunch more to come as I get time to tinker.
 
+## TODO
+
+Lots. Lots and lots. I will be hacking on this more.
+
 [//]: # (README.md ends here)
