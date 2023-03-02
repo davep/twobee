@@ -168,7 +168,9 @@ class TwoBitReader( ABC ):
             offset += 1
             name = raw_index[ offset: offset + name_length ].decode()
             offset += name_length
-            self._index[ name ], *_ = unpack( f"{self._endianness}L", raw_index[ offset: offset + 4 ] )
+            self._index[ name ], *_ = unpack(
+                f"{self._endianness}L", raw_index[ offset: offset + 4 ]
+            )
             offset += 4
 
     @property
