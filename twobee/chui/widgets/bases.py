@@ -125,7 +125,7 @@ class Bases( ScrollView, can_focus=True ):
         if self._sequence is not None:
             self.virtual_size = Size( self._width, self._height )
 
-    def show( self, sequence: TwoBitSequence ):
+    def show( self, sequence: TwoBitSequence ) -> None:
         """Show the given sequence's bases.
 
         Args:
