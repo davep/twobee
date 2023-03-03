@@ -14,6 +14,7 @@ class TwoBitFileReader( TwoBitReader ):
 
     def open( self ) -> None:
         """Open a file for reading."""
+        # pylint: disable=consider-using-with
         self._file = open( self._uri, "rb" )
 
     def close( self ) -> None:
