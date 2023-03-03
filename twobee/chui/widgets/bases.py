@@ -115,10 +115,15 @@ class Bases( ScrollView, can_focus=True ):
         """The width of the data."""
         return self.size.width - ( self._label_size + self.scrollbar_size_vertical )
 
+    @property
+    def _height( self ) -> int:
+        """The height of the data in lines."""
+        return ceil( self._sequence.dna_size / self._width ) if self._sequence is not None else 0
+
     def _refresh_required_height( self ) -> None:
         """Refresh the virtual height required to show the data within the width."""
         if self._sequence is not None:
-            self.virtual_size = Size( self._width, ceil( self._sequence.dna_size // self._width ) + 1 )
+            self.virtual_size = Size( self._width, self._height )
 
     def show( self, sequence: TwoBitSequence ):
         """Show the given sequence's bases.
