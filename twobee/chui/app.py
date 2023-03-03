@@ -7,8 +7,8 @@ from argparse   import Namespace, ArgumentParser, ArgumentTypeError
 from pathlib    import Path
 
 ##############################################################################
-# Textual imports/
-from textual     import __version__ as textual_version
+# Textual imports.
+from textual     import __version__ as textual_version # pylint: disable=no-name-in-module
 from textual.app import App
 
 ##############################################################################
