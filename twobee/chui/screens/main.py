@@ -81,7 +81,7 @@ class Main( Screen ):
         file_map.root.expand()
         file_map.focus()
 
-    def on_tree_node_selected( self, event: Tree.NodeSelected ) -> None:
+    def on_tree_node_selected( self, event: Tree.NodeSelected[ str ] ) -> None:
         """Response to a tree node being selected.
 
         Args:
