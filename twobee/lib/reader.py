@@ -18,6 +18,14 @@ from rich.repr import Result
 from .sequence import TwoBitSequence
 
 ##############################################################################
+class TwoBitError( Exception ):
+    """Base class for all twobee errors."""
+
+##############################################################################
+class UnknownSequence( TwoBitError ):
+    """Exception thrown when an unknown sequence is requested."""
+
+##############################################################################
 class TwoBitReader( ABC ):
     """Abstract base class for 2bit reader classes."""
 
@@ -193,9 +201,12 @@ class TwoBitReader( ABC ):
 
         Returns:
             An object for reading the sequence.
+
+        Raises:
+            UnknownSequence: When an unknown sequence is requested.
         """
-        # TODO: Validate the sequence name first and then throw an error if
-        # it's not known.
+        if name not in self._index:
+            raise UnknownSequence( f"'{name}' is not a sequence in '{self._uri}'" )
         return TwoBitSequence( self, name, self._index[ name ] )
 
     def __getitem__( self, name: str ) -> TwoBitSequence:
