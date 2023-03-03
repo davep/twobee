@@ -2,8 +2,9 @@
 
 ##############################################################################
 # Python imports.
-from __future__ import annotations
-from typing     import Iterator
+from __future__        import annotations
+from typing            import Iterator
+from typing_extensions import Final
 
 ##############################################################################
 # Rich imports.
@@ -15,7 +16,7 @@ from .sequence_protocol import TwoBitSequenceInterface
 
 ##############################################################################
 # The bases, in the correct index ordering.
-BASES = "TCAG"
+BASES: Final = "TCAG"
 
 ##############################################################################
 class TwoBitBases:
