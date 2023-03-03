@@ -22,6 +22,9 @@ BASES: Final = "TCAG"
 class TwoBitBases:
     """Holds bases read from a location in a 2bit file."""
 
+    MAX_REPR_BASES: Final = 50
+    """The maximum number of bases to emit from a repr."""
+
     def __init__( self, sequence: TwoBitSequenceInterface, start: int, end: int ) -> None:
         """Initialise the bases object.
 
@@ -43,8 +46,10 @@ class TwoBitBases:
     def __rich_repr__( self ) -> Result:
         """Make the object look nice in Rich."""
         yield f"{self._sequence.name}:{self.start}..{self.end}"
-        # TODO: pretty print and truncate.
-        yield "bases", str( self )
+        yield "bases", (
+            f"{str( self )[ :self.MAX_REPR_BASES - 3 ]}..."
+            if len( self ) > self.MAX_REPR_BASES else str( self )
+        )
 
     def _load( self ) -> tuple[ str, ... ]:
         """Load a collection of bases from a 2bit file.
