@@ -63,7 +63,9 @@ class TwoBitSequence:
         counts = self.reader.read_long()
         starts = self.reader.read_long_array( counts )
         sizes  = self.reader.read_long_array( counts )
-        return tuple( TwoBitBlock( start, start + size, size ) for start, size in zip( starts, sizes ) )
+        return tuple(
+            TwoBitBlock( start, start + size, size ) for start, size in zip( starts, sizes )
+        )
 
     def __rich_repr__( self ) -> Result:
         """Make the object look nice in Rich."""
