@@ -123,7 +123,7 @@ class TwoBitSequence:
             )
 
         # Getting a range of bases with a tuple.
-        if isinstance( location, tuple ):
+        if isinstance( location, tuple ) and len( location ) == 2:
             return self.bases( *location )
 
         # Getting a range of bases with a string like "100:200" or "100..200".
