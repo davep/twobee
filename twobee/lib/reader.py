@@ -147,7 +147,12 @@ class TwoBitReader( ABC ):
         return unpack( f"{self._endianness}{'L' * count}", self.read( count * 4 ) )
 
     def _read_header( self ) -> None:
-        """Read the header of the 2bit file."""
+        """Read the header of the 2bit file.
+
+        Raises:
+            InvalidSignature: When the signature isn't a valid 2bit signature.
+            InvalidVersion: When the version number isn't a valid 2bit version number.
+        """
 
         # Read in the header.
         header = self.read( self._HEADER_SIZE )
