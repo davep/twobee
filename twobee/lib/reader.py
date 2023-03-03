@@ -22,6 +22,10 @@ class TwoBitError( Exception ):
     """Base class for all twobee errors."""
 
 ##############################################################################
+class InvalidSignature( TwoBitError ):
+    """Exception thrown when the file signature isn't valid."""
+
+##############################################################################
 class UnknownSequence( TwoBitError ):
     """Exception thrown when an unknown sequence is requested."""
 
@@ -152,7 +156,9 @@ class TwoBitReader( ABC ):
                 break
         else:
             # Looks like the signature wasn't valid.
-            raise Exception     # TODO
+            raise InvalidSignature(
+                f"Invalid file signature; '{self._uri}' does not appear to be a 2bit file"
+            )
 
         # 2bit files only have one recognised version; if we're not looking
         # at it...

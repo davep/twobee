@@ -12,16 +12,19 @@ __licence__    = "GPLv3+"
 
 ##############################################################################
 # Import things for easier access.
-from .lib.reader      import TwoBitReader, TwoBitError, UnknownSequence
 from .lib.file_reader import TwoBitFileReader
 from .lib.sequence    import TwoBitSequence
 from .lib.bases       import TwoBitBases
+from .lib.reader      import (
+    TwoBitReader, TwoBitError, InvalidSignature, UnknownSequence
+)
 
 ##############################################################################
 # Define what importing * means.
 __all__ = [
     "TwoBitReader",
     "TwoBitError",
+    "InvalidSignature",
     "UnknownSequence",
     "TwoBitFileReader",
     "TwoBitSequence",
