@@ -107,10 +107,7 @@ class TwoBitSequence:
         Returns:
             The bases loaded between those locations.
         """
-
-        # TODO: actually check and raise a library-bases exception.
-        assert end > start
-        return TwoBitBases( self, start, end )
+        return TwoBitBases( self, start, max( start, end ) )
 
     def __getitem__( self, location: int | slice | tuple[ int, int ] | str ) -> TwoBitBases:
         if isinstance( location, int ):
