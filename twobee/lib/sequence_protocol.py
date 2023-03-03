@@ -32,7 +32,6 @@ class TwoBitSequenceInterface( Protocol ):
     def dna_size( self ) -> int:
         ...
 
-
     def mask_blocks_intersecting( self, start: int, end: int ) -> tuple[ TwoBitBlock, ... ]:
         ...
 
