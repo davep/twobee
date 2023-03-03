@@ -26,6 +26,10 @@ class InvalidSignature( TwoBitError ):
     """Exception thrown when the file signature isn't valid."""
 
 ##############################################################################
+class InvalidVersion( TwoBitError ):
+    """Exception thrown when the file version isn't valid."""
+
+##############################################################################
 class UnknownSequence( TwoBitError ):
     """Exception thrown when an unknown sequence is requested."""
 
@@ -164,7 +168,9 @@ class TwoBitReader( ABC ):
         # at it...
         if version != self.VERSION:
             # ...throw an error.
-            raise Exception     # TODO
+            raise InvalidVersion(
+                f"{version} is not a valid 2bit version; '{self._uri}' is not a supported 2bit file"
+            )
 
     def _read_index( self ) -> None:
         """Read the index of the 2bit file."""

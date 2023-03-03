@@ -16,7 +16,8 @@ from .lib.file_reader import TwoBitFileReader
 from .lib.sequence    import TwoBitSequence
 from .lib.bases       import TwoBitBases
 from .lib.reader      import (
-    TwoBitReader, TwoBitError, InvalidSignature, UnknownSequence
+    TwoBitReader, TwoBitError, InvalidSignature,
+    InvalidVersion, UnknownSequence
 )
 
 ##############################################################################
@@ -25,6 +26,7 @@ __all__ = [
     "TwoBitReader",
     "TwoBitError",
     "InvalidSignature",
+    "InvalidVersion",
     "UnknownSequence",
     "TwoBitFileReader",
     "TwoBitSequence",
