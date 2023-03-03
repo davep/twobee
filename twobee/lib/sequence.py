@@ -110,19 +110,29 @@ class TwoBitSequence:
         return TwoBitBases( self, start, max( start, end ) )
 
     def __getitem__( self, location: int | slice | tuple[ int, int ] | str ) -> TwoBitBases:
+
+        # Getting a single base.
         if isinstance( location, int ):
             return self.bases( location, location + 1 )
+
+        # Getting a range of bases with a slice.
         if isinstance( location, slice ):
             return self.bases(
                 0 if location.start is None else location.start,
                 len( self ) if location.stop is None else location.stop
             )
+
+        # Getting a range of bases with a tuple.
         if isinstance( location, tuple ):
             return self.bases( *location )
+
+        # Getting a range of bases with a string like "100:200" or "100..200".
         if isinstance( location, str ):
             hit = match( r"^(?P<start>\d+)(?::|\.\.)(?P<end>\d+)$", location )
             if hit is not None:
                 return self[ ( int( hit[ "start" ] ), int( hit[ "end" ] )) ]
+
+        # Give up, I don't understand what you're asking for.
         return NotImplemented
 
     @lru_cache()
