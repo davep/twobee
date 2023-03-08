@@ -2,6 +2,8 @@
 
 ## v0.0.2
 
+**Released: 2023-03-08**
+
 ### Added
 
 - Added some library-specific exceptions so it's easier to catch problems
