@@ -1,5 +1,11 @@
 # twobee
 
+[![PyPI version](https://badge.fury.io/py/twobee.svg)](https://badge.fury.io/py/twobee)
+
+[![View a YouTube video of twobee in action](https://raw.githubusercontent.com/davep/twobee/main/img/twobee.png)](https://www.youtube.com/watch?v=ccrRB4sDixU)
+
+[View the code in action on YouTube](https://www.youtube.com/watch?v=ccrRB4sDixU)
+
 ## Introduction
 
 `twobee` is sort of two things rolled into one: it's a Python-based [2bit
