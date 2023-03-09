@@ -76,9 +76,8 @@ def get_args() -> Namespace:
     # The remainder is the file to view.
     parser.add_argument(
         "file",
-        help    = "The 2bit file to view",
-        type    = py_file,
-        default = "."
+        help = "The 2bit file to view",
+        type = py_file
     )
 
     # Finally, parse the command line.
