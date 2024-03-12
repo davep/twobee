@@ -1,33 +1,38 @@
 """Provides a 2bit file reader protocol."""
 
 ##############################################################################
-# Python imports.
-from __future__        import annotations
-from typing_extensions import Protocol
+# Backward compatibility.
+from __future__ import annotations
 
 ##############################################################################
-class TwoBitReaderInterface( Protocol ):
+# Python imports.
+from typing_extensions import Protocol
+
+
+##############################################################################
+class TwoBitReaderInterface(Protocol):
     """Protocol class for 2bit reader classes."""
 
     # pylint: disable=missing-docstring
 
     @property
-    def masking( self ) -> bool:
+    def masking(self) -> bool:
         ...
 
-    def goto( self, position: int ) -> None:
+    def goto(self, position: int) -> None:
         ...
 
-    def position( self ) -> int:
+    def position(self) -> int:
         ...
 
-    def read( self, size: int, position: int | None=None ) -> bytes:
+    def read(self, size: int, position: int | None = None) -> bytes:
         ...
 
-    def read_long( self ) -> int:
+    def read_long(self) -> int:
         ...
 
-    def read_long_array( self, count: int ) -> tuple[ int, ... ]:
+    def read_long_array(self, count: int) -> tuple[int, ...]:
         ...
+
 
 ### reader_protocol.py ends here
