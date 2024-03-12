@@ -8,7 +8,6 @@ textual = "*"
 typing-extensions = "*"
 
 [dev-packages]
-vermin = "*"
 mypy = "*"
 pylint = "*"
 twine = "*"

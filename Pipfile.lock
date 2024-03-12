@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "987e171def94ed7b6127775196e7906f986ace1905849a72f65b3f4e26106e86"
+            "sha256": "6359c457a98fad3376325117543a3663ec0a8d13e9336d19959751f6ff0ee6e5"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -470,15 +470,6 @@
             ],
             "markers": "python_version >= '3.8'",
             "version": "==2.2.1"
-        },
-        "vermin": {
-            "hashes": [
-                "sha256:6266ca02f55d1c2aa189a610017c132eb2d1934f09e72a955b1eb3820ee6d4ef",
-                "sha256:f1fa9ee40f59983dc40e0477eb2b1fa8061a3df4c3b2bcf349add462a5610efb"
-            ],
-            "index": "pypi",
-            "markers": "python_version >= '3.0'",
-            "version": "==1.6.0"
         },
         "zipp": {
             "hashes": [
