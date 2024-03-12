@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-textual = {extras = ["dev"], version = "*"}
+textual = "*"
 typing-extensions = "*"
 
 [dev-packages]
@@ -15,5 +15,4 @@ twine = "*"
 typing-extensions = "*"
 
 [requires]
-python_version = "3.7"
-python_full_version = "3.7.16"
+python_version = "3.12"
