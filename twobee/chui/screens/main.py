@@ -19,7 +19,7 @@ from ..widgets import Bases
 
 
 ##############################################################################
-class Main(Screen):
+class Main(Screen[None]):
     """The main screen for the TwoBee application."""
 
     DEFAULT_CSS = """
