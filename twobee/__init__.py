@@ -2,23 +2,26 @@
 
 ######################################################################
 # Main information.
-__author__     = "Dave Pearson"
-__copyright__  = "Copyright 2023-2024, Dave Pearson"
-__credits__    = [ "Dave Pearson" ]
+__author__ = "Dave Pearson"
+__copyright__ = "Copyright 2023-2024, Dave Pearson"
+__credits__ = ["Dave Pearson"]
 __maintainer__ = "Dave Pearson"
-__email__      = "davep@davep.org"
-__version__    = "0.0.2"
-__licence__    = "GPLv3+"
+__email__ = "davep@davep.org"
+__version__ = "0.0.2"
+__licence__ = "GPLv3+"
 
 ##############################################################################
 # Import things for easier access.
+from .lib.bases import TwoBitBases
 from .lib.file_reader import TwoBitFileReader
-from .lib.sequence    import TwoBitSequence
-from .lib.bases       import TwoBitBases
-from .lib.reader      import (
-    TwoBitReader, TwoBitError, InvalidSignature,
-    InvalidVersion, UnknownSequence
+from .lib.reader import (
+    InvalidSignature,
+    InvalidVersion,
+    TwoBitError,
+    TwoBitReader,
+    UnknownSequence,
 )
+from .lib.sequence import TwoBitSequence
 
 ##############################################################################
 # Define what importing * means.
@@ -30,7 +33,7 @@ __all__ = [
     "UnknownSequence",
     "TwoBitFileReader",
     "TwoBitSequence",
-    "TwoBitBases"
+    "TwoBitBases",
 ]
 
 ### __init__.py ends here

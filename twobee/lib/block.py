@@ -4,6 +4,7 @@
 # Python imports.
 from dataclasses import dataclass
 
+
 ##############################################################################
 @dataclass
 class TwoBitBlock:
@@ -16,7 +17,8 @@ class TwoBitBlock:
     size: int
     """The size of the block."""
 
-    def __contains__( self, position: int ) -> bool:
+    def __contains__(self, position: int) -> bool:
         return self.start <= position < self.end
+
 
 ### block.py ends here

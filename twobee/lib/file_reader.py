@@ -8,28 +8,29 @@ from __future__ import annotations
 # Local imports.
 from .reader import TwoBitReader
 
+
 ##############################################################################
-class TwoBitFileReader( TwoBitReader ):
+class TwoBitFileReader(TwoBitReader):
     """Class for reading data from a local 2bit file."""
 
-    def open( self ) -> None:
+    def open(self) -> None:
         """Open a file for reading."""
         # pylint: disable=consider-using-with
-        self._file = open( self._uri, "rb" )
+        self._file = open(self._uri, "rb")
 
-    def close( self ) -> None:
+    def close(self) -> None:
         """Close the file."""
         self._file.close()
 
-    def goto( self, position: int ) -> None:
+    def goto(self, position: int) -> None:
         """Go to a specific position within the file.
 
         Args:
             position: The position to go to in the file.
         """
-        self._file.seek( position )
+        self._file.seek(position)
 
-    def position( self ) -> int:
+    def position(self) -> int:
         """Get the current position within the 2bit file.
 
         Returns:
@@ -37,7 +38,7 @@ class TwoBitFileReader( TwoBitReader ):
         """
         return self._file.tell()
 
-    def read( self, size: int, position: int | None=None ) -> bytes:
+    def read(self, size: int, position: int | None = None) -> bytes:
         """Read a number of bytes from the 2bit file.
 
         Args:
@@ -48,7 +49,8 @@ class TwoBitFileReader( TwoBitReader ):
             The bytes read.
         """
         if position is not None:
-            self.goto( position )
-        return self._file.read( size )
+            self.goto(position)
+        return self._file.read(size)
+
 
 ### file_reader.py ends here

@@ -1,43 +1,51 @@
 """Implements a base reader class for reading from 2bit files."""
 
 ##############################################################################
+# Backward compatibility.
+from __future__ import annotations
+
+##############################################################################
 # Python imports.
-from __future__        import annotations
-from abc               import ABC, abstractmethod
-from struct            import unpack
-from functools         import lru_cache
-from typing            import Iterator
-from typing_extensions import Final
+from abc import ABC, abstractmethod
+from functools import lru_cache
+from struct import unpack
+from typing import Iterator
 
 ##############################################################################
 # Rich imports.
 from rich.repr import Result
+from typing_extensions import Final
 
 ##############################################################################
 # Local imports.
 from .sequence import TwoBitSequence
 
+
 ##############################################################################
-class TwoBitError( Exception ):
+class TwoBitError(Exception):
     """Base class for all twobee errors."""
 
+
 ##############################################################################
-class InvalidSignature( TwoBitError ):
+class InvalidSignature(TwoBitError):
     """Exception thrown when the file signature isn't valid."""
 
+
 ##############################################################################
-class InvalidVersion( TwoBitError ):
+class InvalidVersion(TwoBitError):
     """Exception thrown when the file version isn't valid."""
 
+
 ##############################################################################
-class UnknownSequence( TwoBitError ):
+class UnknownSequence(TwoBitError):
     """Exception thrown when an unknown sequence is requested."""
 
+
 ##############################################################################
-class TwoBitReader( ABC ):
+class TwoBitReader(ABC):
     """Abstract base class for 2bit reader classes."""
 
-    SIGNATURE: Final = 0x1a412743
+    SIGNATURE: Final = 0x1A412743
     """The signature of a 2bit file."""
 
     VERSION: Final = 0
@@ -46,7 +54,7 @@ class TwoBitReader( ABC ):
     _HEADER_SIZE: Final = 16
     """The size of a 2bit file header."""
 
-    def __init__( self, uri: str, masking: bool=False ) -> None:
+    def __init__(self, uri: str, masking: bool = False) -> None:
         """Initialise the reader.
 
         Args:
@@ -57,7 +65,7 @@ class TwoBitReader( ABC ):
 
             The `masking` parameter is optional and is `False` by default.
         """
-        self._uri     = uri
+        self._uri = uri
         self._masking = masking
         self.open()
 
@@ -68,7 +76,7 @@ class TwoBitReader( ABC ):
         self._sequence_count = 0
 
         # Start out with an empty index.
-        self._index: dict[ str, int ] = {}
+        self._index: dict[str, int] = {}
 
         # Read the header.
         self._read_header()
@@ -76,26 +84,26 @@ class TwoBitReader( ABC ):
         # Read the index.
         self._read_index()
 
-    def __rich_repr__( self ) -> Result:
+    def __rich_repr__(self) -> Result:
         """Make the object look nice in Rich."""
         yield self._uri
         yield "sequence_count", self._sequence_count
 
     @property
-    def masking( self ) -> bool:
+    def masking(self) -> bool:
         """Should masking be taken into account?"""
         return self._masking
 
     @abstractmethod
-    def open( self ) -> None:
+    def open(self) -> None:
         """Open the URI for reading."""
 
     @abstractmethod
-    def close( self ) -> None:
+    def close(self) -> None:
         """Close the URI for reading."""
 
     @abstractmethod
-    def goto( self, position: int ) -> None:
+    def goto(self, position: int) -> None:
         """Go to a specific position within the file.
 
         Args:
@@ -103,7 +111,7 @@ class TwoBitReader( ABC ):
         """
 
     @abstractmethod
-    def position( self ) -> int:
+    def position(self) -> int:
         """Get the current position within the 2bit file.
 
         Returns:
@@ -112,7 +120,7 @@ class TwoBitReader( ABC ):
         return NotImplemented
 
     @abstractmethod
-    def read( self, size: int, position: int | None=None ) -> bytes:
+    def read(self, size: int, position: int | None = None) -> bytes:
         """Read a number of bytes from the 2bit file.
 
         Args:
@@ -124,7 +132,7 @@ class TwoBitReader( ABC ):
         """
         return NotImplemented
 
-    def read_long( self ) -> int:
+    def read_long(self) -> int:
         """Read a long integer from the file.
 
         Returns:
@@ -133,9 +141,9 @@ class TwoBitReader( ABC ):
         Note:
             In this case a long integer is 4 bytes.
         """
-        return int( unpack( f"{self._endianness}L", self.read( 4 ) )[ 0 ] )
+        return int(unpack(f"{self._endianness}L", self.read(4))[0])
 
-    def read_long_array( self, count: int ) -> tuple[ int, ... ]:
+    def read_long_array(self, count: int) -> tuple[int, ...]:
         """Read an array of long integers from the file.
 
         Args:
@@ -144,9 +152,9 @@ class TwoBitReader( ABC ):
         Returns:
             A tuple of long integers read.
         """
-        return unpack( f"{self._endianness}{'L' * count}", self.read( count * 4 ) )
+        return unpack(f"{self._endianness}{'L' * count}", self.read(count * 4))
 
-    def _read_header( self ) -> None:
+    def _read_header(self) -> None:
         """Read the header of the 2bit file.
 
         Raises:
@@ -155,11 +163,13 @@ class TwoBitReader( ABC ):
         """
 
         # Read in the header.
-        header = self.read( self._HEADER_SIZE )
+        header = self.read(self._HEADER_SIZE)
 
         # Now test it to figure out what endianness we want to be using.
         for candidate in "<>":
-            signature, version, self._sequence_count, _ = unpack( f"{candidate}IIII", header )
+            signature, version, self._sequence_count, _ = unpack(
+                f"{candidate}IIII", header
+            )
             if signature == self.SIGNATURE:
                 self._endianness = candidate
                 break
@@ -177,7 +187,7 @@ class TwoBitReader( ABC ):
                 f"{version} is not a valid 2bit version; '{self._uri}' is not a supported 2bit file"
             )
 
-    def _read_index( self ) -> None:
+    def _read_index(self) -> None:
         """Read the index of the 2bit file."""
 
         # An index entry is 1 byte for the name length, length number of
@@ -185,32 +195,32 @@ class TwoBitReader( ABC ):
         # data. This means each record is variable in length. Because we
         # might be reading from a slow source, let's load up the maximum
         # buffer.
-        raw_index = self.read( ( 1 + 255 + 4 ) * self._sequence_count )
+        raw_index = self.read((1 + 255 + 4) * self._sequence_count)
 
         offset = 0
-        for _ in range( self._sequence_count ):
-            name_length = raw_index[ offset ]
+        for _ in range(self._sequence_count):
+            name_length = raw_index[offset]
             offset += 1
-            name = raw_index[ offset: offset + name_length ].decode()
+            name = raw_index[offset : offset + name_length].decode()
             offset += name_length
-            self._index[ name ], *_ = unpack(
-                f"{self._endianness}L", raw_index[ offset: offset + 4 ]
+            self._index[name], *_ = unpack(
+                f"{self._endianness}L", raw_index[offset : offset + 4]
             )
             offset += 4
 
     @property
-    def sequences( self ) -> tuple[ str, ... ]:
+    def sequences(self) -> tuple[str, ...]:
         """The collection of sequences found in the 2bit file."""
-        return tuple( self._index.keys() )
+        return tuple(self._index.keys())
 
-    def __iter__( self ) -> Iterator[ str ]:
-        return iter( self.sequences )
+    def __iter__(self) -> Iterator[str]:
+        return iter(self.sequences)
 
-    def __len__( self ) -> int:
+    def __len__(self) -> int:
         return self._sequence_count
 
     @lru_cache()
-    def sequence( self, name: str ) -> TwoBitSequence:
+    def sequence(self, name: str) -> TwoBitSequence:
         """Get a 2bit sequence given its name.
 
         Args:
@@ -223,10 +233,11 @@ class TwoBitReader( ABC ):
             UnknownSequence: When an unknown sequence is requested.
         """
         if name not in self._index:
-            raise UnknownSequence( f"'{name}' is not a sequence in '{self._uri}'" )
-        return TwoBitSequence( self, name, self._index[ name ] )
+            raise UnknownSequence(f"'{name}' is not a sequence in '{self._uri}'")
+        return TwoBitSequence(self, name, self._index[name])
 
-    def __getitem__( self, name: str ) -> TwoBitSequence:
-        return self.sequence( name )
+    def __getitem__(self, name: str) -> TwoBitSequence:
+        return self.sequence(name)
+
 
 ### reader.py ends here

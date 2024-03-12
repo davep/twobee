@@ -8,11 +8,12 @@ textual = "*"
 typing-extensions = "*"
 
 [dev-packages]
-vermin = "*"
 mypy = "*"
 pylint = "*"
 twine = "*"
 typing-extensions = "*"
+pre-commit = "*"
+black = "*"
 
 [requires]
 python_version = "3.12"
