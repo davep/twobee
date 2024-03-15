@@ -14,6 +14,7 @@ twine = "*"
 typing-extensions = "*"
 pre-commit = "*"
 black = "*"
+build = "*"
 
 [requires]
 python_version = "3.12"
